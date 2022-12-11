@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Get fictional song by your favorite artists</h2>
+
+<form method=POST>{{ form.csrf_token }}
+    <p>{{form.artist.label}}<br>
+    {{form.artist(size=128)}}<br>
+    </p>
+    <p>{{ form.submit() }}</p>
+</form>
+{% if song %}
+<pre>
+{{ song }}
+</pre>
+{% endif %}
+{% endblock %}
