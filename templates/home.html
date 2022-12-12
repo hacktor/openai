@@ -9,8 +9,8 @@
     <p>{{ form.submit() }}</p>
 </form>
 {% if song %}
-<pre>
+{% autoescape off %}
 {{ song }}
-</pre>
+{% endautoescape %}
 {% endif %}
 {% endblock %}

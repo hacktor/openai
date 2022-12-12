@@ -11,6 +11,7 @@ app.config['SECRET_KEY'] = os.urandom(32)
 def getsong(artist):
     """ get possible songtext based on parameter artist """
     prompt_text = f"Artist: {artist}\n\nLyrics:\n"
+    prompt_html = f"<b>Artist:</b> {artist}<br/><b>Lyrics:</b><br/><br/>"
     openai.api_key = os.environ.get("OPENAI_API_KEY")
 
     response = openai.Completion.create(
@@ -20,7 +21,10 @@ def getsong(artist):
         max_tokens=256,
         frequency_penalty=0.5
     )
-    return prompt_text + response['choices'][0]['text']
+    song = response['choices'][0]['text']
+    html = '<br/>'.join([line for line in song.splitlines() if line.strip()])
+
+    return prompt_html + html
 
 # forms
 class ArtistForm(FlaskForm):
